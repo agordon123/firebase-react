@@ -1,0 +1,39 @@
+.Footer{
+    border-style:solid; 
+    border-color:#C0C0C0; 
+    color: #070303;
+    
+}
+
+
+.Footer p {
+    align-items: center;
+}
+
+.Footer img {
+
+    
+    border: 2px;
+    width:100px; 
+    height:69;
+    border:2;
+    
+    
+}
+.Footer img style{
+    border: 1px solid #C0C0C0;
+}
+
+.Footer p style {
+    margin:0in;
+    margin-bottom:.0001pt;
+    text-align:center; 
+    font-size:10.0pt;
+}
+.Footer p span{
+    font-size:10.0pt;
+}
+.Footer a{
+    color: silver;
+    text-decoration: underline;
+}
