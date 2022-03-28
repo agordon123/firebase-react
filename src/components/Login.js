@@ -1,10 +1,11 @@
-import {React,useContext,useHistory,useRef,useState} from "react";
-import {FormControl,FormLabel,FormErrorMessage,FormHelperText,} from '@chakra-ui/react';
-  import { useAuth } from "../contexts/AuthContext";
-  import { LinkBox,Link } from "@chakra-ui/react";
-  import { useForm } from "react-hook-form";
+import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Link, LinkBox, Modal } from '@chakra-ui/react';
+import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { React, useContext, useHistory, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../contexts/AuthContext";
+import { auth, db, provider } from './firebase';
 
-  export const LoginPage = ({useAuth}) => {
+  export const Login = ({useAuth}) => {
     const emailRef = useRef()
     const passwordRef = useRef()
     const { login } = useAuth()
@@ -28,6 +29,8 @@ import {FormControl,FormLabel,FormErrorMessage,FormHelperText,} from '@chakra-ui
           const isLoggedIn = useContext(useAuth);
     return(
         <>
+        <Modal isOpen={isLoggedIn}>
+        </Modal>
         </>
     )
 }

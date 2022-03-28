@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore,DocumentReference,DocumentSnapshot,addDoc,getDoc,getDocs ,serverTimestamp} from "firebase/firestore";
 import {getAuth,GoogleAuthProvider} from 'firebase/auth';
 import {getStorage} from 'firebase/storage'
 import {getDatabase} from 'firebase/database'
@@ -23,3 +23,19 @@ const firebaseConfig = {
   export const storage = getStorage(app);
 
   export const database = getDatabase();
+
+  export const listingData = {
+    id:{id},
+    bedrooms:{bedrooms},
+    bathrooms:{bathrooms},
+    description:{description},
+    price:{price},
+    street:{street},
+    city:{city},
+    state:{state},
+    zip:{zip},
+    listedOn:serverTimestamp(),
+    type:{type},
+
+
+  }

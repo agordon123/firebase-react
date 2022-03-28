@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Icon, IconButton, Link, LinkBox, Menu, MenuButton, MenuItem, MenuList, Spacer, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import {Container,Box} from '@mui/material';
 import { React, useContext, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { FcAbout, FcDown, FcHome, FcMenu } from 'react-icons/fc';
@@ -62,7 +62,8 @@ export const Header = () =>{
     }
 
     return(
-        
+        <div className='header'>
+        <Box>
         <Flex  direction="row" borderColor="gray.100" borderBottom="1px" p="0" >
         <Header>
             <Box fontSize="20px" color="rgb(196,196,196)" alignItems="end">
@@ -76,6 +77,8 @@ export const Header = () =>{
         
         </Header>
         </Flex>
+        </Box>
+        </div>
     )
     }
 }
