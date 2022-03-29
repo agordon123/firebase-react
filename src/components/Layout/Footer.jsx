@@ -48,11 +48,11 @@ export const Footer = () =>{
         </Typography>
       </Grid>
       <Grid item >
-        <Text >
+        <Typography >
           MNC Development, Inc. as a NYS licensed Real Estate Broker fully supports the
           principles of the Fair Housing Act and the Equal Opportunity Act. Listing
           information is deemed reliable, but is not guaranteed.
-        </Text>
+        </Typography>
       </Grid>
     </Grid>
     </Box>

@@ -1,38 +1,36 @@
-import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Link, LinkBox, Modal } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormGroup, FormHelperText, FormLabel, Link, LinkBox, Modal ,Paper} from '@mui/material';
+import { useFormControl } from '@mui/material/FormControl';
+import { Box } from '@mui/material';
 import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { React, useContext, useHistory, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../contexts/AuthContext";
-import { auth, db, provider } from './firebase';
+import { auth, db, provider } from './constants/firebase';
+import { AuthProvider } from './contexts/AuthContext';
 
-  export const Login = ({useAuth}) => {
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const { login } = useAuth()
-    const [error, setError] = useState("")
-    const [loading, setLoading] = useState(false)
-    const history = useHistory()
-    
+export const Login = () => {
+ 
+    const [auth,isAuth] = useState([]);
+
     async function handleSubmit(e) {
         e.preventDefault()}
 
-        try {
-            setError("")
-            setLoading(true)
-            login(emailRef.current.value, passwordRef.current.value)
-            history.push("/")
-          } catch {
-            setError("Failed to log in")
-          }
-          setLoading(false)
-    
-          const isLoggedIn = useContext(useAuth);
+ 
     return(
-        <>
-        <Modal isOpen={isLoggedIn}>
-        </Modal>
-        </>
-    )
+        
+        <Box sx={{
+          height:100,
+          justifycontent:'center',
+          paddingTop:10,
+        }}>
+        <AuthProvider>
+        <FormGroup className='LoginForm'
+        sx={{width:'30ch'}}>
+
+        </FormGroup>
+        </AuthProvider>
+        </Box>
+        
+              )
 }
 
-export default LoginPage;
+export default Login;

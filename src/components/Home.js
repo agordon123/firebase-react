@@ -12,24 +12,12 @@ import {GlobalFooter} from "./GlobalFooter";
 
 
 export const Home = ({children}) => {
-    let navigate = useNavigate();
-    const [showMenu,setShowMenu] = useState();
-    const location = useLocation();
-    const pathName = location.pathname;
-
-    useEffect(()=>{
-        if(!isAuth && pathName !== "/"){
-            setShowMenu(false);
-        }else{
-            setShowMenu(true);
-        }
-    },[]);
-
+ 
 
 
 return(
     <div className="Home">
-    <Box display="grid" >
+    <Box display="grid" paddingTop={8}>
     <GlobalFooter/>
     </Box>
     </div>

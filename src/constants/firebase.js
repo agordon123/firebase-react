@@ -22,20 +22,4 @@ const firebaseConfig = {
 
   export const storage = getStorage(app);
 
-  export const database = getDatabase();
-
-  export const listingData = {
-    id:{id},
-    bedrooms:{bedrooms},
-    bathrooms:{bathrooms},
-    description:{description},
-    price:{price},
-    street:{street},
-    city:{city},
-    state:{state},
-    zip:{zip},
-    listedOn:serverTimestamp(),
-    type:{type},
-
-
-  }
+  export const database = getDatabase(app);
