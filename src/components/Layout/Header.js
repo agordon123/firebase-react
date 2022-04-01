@@ -1,65 +1,114 @@
-import {Container,Box, Link,Button,List,ListItem,Modal,Img, Grid,} from '@mui/material';
+import {Box, Link,Grid,Modal,Paper} from '@mui/material';
 import React,{ useState ,useRef, useEffect} from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { FcAbout, FcDown, FcHome, FcMenu } from 'react-icons/fc';
-import { auth, provider } from '../../constants/firebase';
-import { flexbox,item } from '@mui/system';
-import { NavLink,Route,Routes } from 'react-router-dom';
-import { useDetectOutsideClick } from './useDetectOutsideClick';
+import './styles.css';
+import {LoginPage} from '../pages/Login';
+import {FirebaseAuth} from '../auth/FirebaseAuth';
+import { useAuthValue } from '../contexts/AuthContext';
 
-export const Header = () =>{
-    const [loggedIn,setIsLoggedIn] = useState(false);
-    const login = (email,password) =>{
+
+
+
+
+export const Header = ({FirebaseAuth:currentUser})=>{
+    const [user,setUser] = useState("");
+    const [open,isOpen] = useState(false);
+    const [firebaseUser,setFirebaseUser] = useState("");
+   
+
+    const navbarProps = {
+        height:60,
+        float:'right',
+    position:'absolute',
+    top:0,
+    boxShadow:'0px 5px 10px 2px rgba(136,136,136,1)',
+    backgroundColor:'rgb(196 196 196)',
+    display:'block',
+    right:0,
+    fontSize:20,
+    fontFamily:'Garamond',
+    fontWeight:'bold',
+    textAlign:'center',
+    zIndex:2,
+    gap:100,
+    alignContent: 'center',
+    columnSpan:'all',
+    borderBottom:'1px solid black',
+    paddingBottom:2,
+    paddingTop:2
     }
 
 
+    const onClick = () =>{
+        return(
+            <div>
+            <Modal open={isOpen} onClose={()=>isOpen(false)}></Modal>
+            </div>
+        )
+        
+    }
+    useEffect(()=>{
+        console.log(currentUser);
+        setFirebaseUser(currentUser);
+    },[currentUser])
+    
     return(
-        <Grid className="headerContainer" container direction="row-reverse" justifyContent="flex-start"
+        <Grid flex className="navbar" container direction="row-reverse" justifyContent="flex-end" width="100%" 
         sx={{
-            height:60,
-            float:'right',
-            gridTemplateColumns:'repeat(5fr 3fr)',
-        position:'absolute',
-        top:0,
-        width:'auto',
-        boxShadow:'0px 5px 10px 2px rgba(136,136,136,1)',
-        backgroundColor:'rgb(196 196 196)',
-        display:'grid',
-        right:0,
-        fontSize:25,
-        fontFamily:'Garamond',
-        fontWeight:'bold',
-       
-        zIndex:2,
-        gap:1
+           ...navbarProps
         }}>
-        <nav grid gridTemplateColumns={3} float="right" width="100%" container spacing={3} justifyContent="flex-start">
-        <Link href='/Login' item xs="auto"
+        <nav sx={{
+    
+        
+        }} >
+        <Link href='/' 
+        
+        
         sx={{  
         position:'relative',
         overflow:'hidden',
-        color:'black',
+        color:'white',
         float:'right',
-        gridColumn:3
+        gridColumn:12,
+        paddingRight:2,
+        paddingLeft:2
         }}
         >Login/Register
         </Link>
+        
         <Link href="/listings"
         sx={{color:'black',
         gridColumn:2,
-        float:'right'
+        float:'right',
+        span:3,
+        paddingRight:2,
+        paddingLeft:2
          }}>
-         Browse Listings
+         Browse Listings             
          </Link>
         <Link href="/contact"
             sx={{color:'black',   
             float:'right',
             position:'relative',
             overflow:'hidden',
-        gridColumn:1}}>
+            paddingRight:2,
+            paddingLeft:2,
+            gridColumn:3,
+        }}>
                 Contact
+        </Link>
+        <Link href="/" sx={{
+            color:'black',   
+        float:'left',
+        position:'relative',
+        overflow:'hidden',
+        paddingRight:2,
+        paddingLeft:2
+    }}>
+        MNC Development 3.20
+        
         </Link> 
         </nav>
+      
         </Grid>
     )
 
@@ -114,3 +163,4 @@ Header.propTypes = {
 
 
 export default Header;
+

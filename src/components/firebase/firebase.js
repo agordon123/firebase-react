@@ -1,9 +1,10 @@
+import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,createUserWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { getFirestore,DocumentReference,DocumentSnapshot,addDoc,getDoc,getDocs ,serverTimestamp} from "firebase/firestore";
-import {getAuth,GoogleAuthProvider} from 'firebase/auth';
 import {getStorage} from 'firebase/storage'
 import {getDatabase} from 'firebase/database'
-const firebaseConfig = {
+
+export const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
     databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
@@ -13,13 +14,15 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
   };
-  const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
-  export const db = getFirestore(app);
+export const db = getFirestore(app);
 
-  export const auth = getAuth(app);
-  export const provider = new GoogleAuthProvider();
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
 
-  export const storage = getStorage(app);
+export const storage = getStorage(app);
 
-  export const database = getDatabase(app);
+export const database = getDatabase(app);
+
+export default app;

@@ -1,8 +1,10 @@
-import React from "react";
+import React,{useState,useContext} from "react";
 import { useNavigate,Link,useLocation } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { FirebaseAuth } from "../auth/FirebaseAuth";
 import { Box } from "@mui/material";
 import {GlobalFooter} from "./GlobalFooter";
+import { FirebaseAuthConsumer } from "@react-firebase/auth";
+import Header from "../Layout/Header";
 
 
 
@@ -11,13 +13,16 @@ import {GlobalFooter} from "./GlobalFooter";
 
 
 
-export const Home = ({children}) => {
+export const Home = () => {
  
 
 
 return(
     <div className="Home">
     <Box display="grid" paddingTop={8}>
+    
+    <Header />
+     
     <GlobalFooter/>
     </Box>
     </div>
