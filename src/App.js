@@ -1,60 +1,76 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { Routes,Route } from "react-router-dom";
+import React, { useState ,useEffect,useReducer,useRef} from "react";
 import './App.css';
-import Header from "./components/Layout/Header";
 import {Account} from "./components/pages/Account";
-import { Box } from "@mui/material";
-import { Grid ,Stack} from "@mui/material";
-import LoginPage from "./components/pages/Login";
-import FirebaseAuth from "./components/auth/FirebaseAuth";
-import Signup from "./components/pages/Register";
-import { Login } from "@mui/icons-material";
+import { Box, Container } from "@mui/material";
+import { Grid } from "@mui/material";
+import Header from './components/Header/Header';
+import {app, auth} from "./components/auth/firebase";
+import {signInWithEmailAndPassword,createUserWithEmailAndPassword,getAuth} from 'firebase/auth';
+import { getFirestore } from "firebase/firestore";
+import { signIn,signUp,signOut } from "./components/auth/firebase";
+import Login from "./components/pages/Login";
+import Form from './components/common/Form';
+import {Routes,Route,BrowserRouter as Router} from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Register from "./components/pages/Register";
+import { ListItem,Link,ListItemAvatar } from "@mui/material";
+import ResponsiveAppBar from "./testcomponents/ResponsiveAppBar";
+import MultiActionAreaCard from "./testcomponents/MultiActionCard";
 
-
-export  const App = () =>{
-    const [firebaseUser,setFirebaseUser] = useState("");
+export const App = () =>{
 
     
-        return(
-            <div className="App">
-            
-            <Box grid minHeight="100vh"  sx={{
-                display:'grid',
-                gridTemplateColumns:'repeat(3,1fr)',
-                gridTemplateRows:'repeat(3,1fr)',
-                alignContent: 'space-evenly',
-                justifyContent: 'center',
-                alignItems: 'end',
-                justifyItems:'stretch'
-            }}>
-            
-            <Header />
-            
-            </Box>
-           
-            </div>
+    const [data,setData] = useState({});
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+
+    const handleInput = (e) =>{
+        let inputs = { [e.target.name]: e.target.value };
+        setData({...data,...inputs});
+        
+    }
+    const handleAction = () =>{
+
+    }
+    const handleSubmit = () =>{
+        signInWithEmailAndPassword(auth,data.email,data.password);
+    }
+    const handleLogout = () =>{
+        signOut(getAuth(auth));
+    }
+
+    const addNewUser = () =>{
+        createUserWithEmailAndPassword(auth,data.email,data.password).then(()=>{
+            let user = auth.currentUser;
+            let db = getFirestore(app);
+            db.collection("users").doc(data.email).set({
+                email: data.email,
+                password: data.password,
+                uid: user.uid,
+                AccountType:'Regular'
+            }).then(()=>{
+                setData(user);
+            })
+        });
+        handleSubmit(data.email,data.password);
+    }
+
+
+    
+    return(
+        <>
+        <ResponsiveAppBar />
+        <MultiActionAreaCard />
+        </>
+      
         )
     }
 
+        
+ 
 
-const routes = [
-    {
-        path: "/",
-        component:App
-    },
-    {
-        path:"/Account",
-        component:Account
-    },
-    {
-        path:"/Login",
-        component:LoginPage
-    },
-    {
-        path:"/Register",
-        component:Signup
-    }
-]
+
+
+
 
 export default App;

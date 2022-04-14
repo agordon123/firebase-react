@@ -1,8 +1,12 @@
-import React from "react";
-import { signOut } from "firestore";
+import React,{useContext} from "react";
+import { signOut } from "../auth/firebase";
+import {AuthContext} from '../AuthContext.js'
+
 
 
 export const Account =() =>{
+
+    const {user} = useContext(AuthContext);
 
     const handleLogout = async() =>{
         await signOut();

@@ -8,9 +8,8 @@ export default class GlobalState extends Component {
     constructor(props){
         super(props);
         this.state  ={
-            isLoading:true,
-            user: null,
-            openLoginDialogState:null,
+            isAuth:false,
+            user:''
             
         }
         this.props = props;

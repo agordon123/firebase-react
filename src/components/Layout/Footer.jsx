@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {HiMail} from 'react-icons/hi';
-import { Grid,ImageList ,Box} from '@material-ui/core';
+import { Grid,ImageList ,Box} from '@mui/material';
 import './styles.css';
 import { ImageListItem, Typography } from '@mui/material';
-import { flexbox } from '@mui/system';
+
 
 
 
@@ -16,7 +16,7 @@ export const Footer = () =>{
 
   return(
     <div className='GlobalFooter'>
-    <Box flexbox display="grid"  sx={{justifyContent:"center"}}>
+    <Box flex display="grid"  sx={{justifyContent:"center"}}>
       <Grid  container spacing={4} paddingBottom="2" justifyContent="center" gridTemplateColumns={3} gridTemplateRows={3}>
         <Grid item gridRow={1}>
         <ImageList  gridTemplateColumns={3} >
