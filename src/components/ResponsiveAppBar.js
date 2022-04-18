@@ -11,7 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Home } from '@mui/icons-material';
+import { Home, Image } from '@mui/icons-material';
 import Link from '@mui/material/Link';
 import { Route } from 'react-router-dom';
 
@@ -22,6 +22,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
 
+  const linksContainerRef = React.useRef(null);
+  
 
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,7 +53,7 @@ const ResponsiveAppBar = () => {
     return pages.map((page, index) => {
       return (
         <MenuItem key={index}>
-          <Link href={links[index]}>{page}</Link>
+          <Link href={<Route to={links[index]} />}>{page}</Link>
         </MenuItem>
       );
     });
@@ -123,7 +125,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            <Image src="public/mncdevelopmentlogo.jpg" />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

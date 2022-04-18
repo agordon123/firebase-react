@@ -2,7 +2,7 @@ import React from "react";
 import {Card,AppBar,Typography ,CardActions,CardContent,CardMedia,CssBaseline,Grid,Toolbar,Container,ButtonGroup,Button,createTheme,ThemeProvider} from "@mui/material";
 import { Home, HomeMaxTwoTone } from "@mui/icons-material";
 import "./styles.scss";
-import MultiActionAreaCard from './MultiActionCard'
+import MultiActionAreaCard from '../components/MultiActionCard'
 
 export const App = () =>{
     const theme = createTheme({
@@ -17,7 +17,7 @@ export const App = () =>{
         }})
 
     return(
-        <>
+        <div>
         <CssBaseline />
             <AppBar children="true" position="relative" sx={{fontFamily:'Garamond'}}>
             <HomeMaxTwoTone />
@@ -37,6 +37,6 @@ export const App = () =>{
             </Container>
             </div>
             </main>
-        </>
+       </div>
     )
 }

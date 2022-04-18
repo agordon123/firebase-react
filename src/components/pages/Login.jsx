@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signIn } from "../auth/firebase";
+import ResponsiveAppBar from "../ResponsiveAppBar";
 
 export const Login = () => {
   const [data,setData] = useState({})
@@ -8,16 +9,26 @@ export const Login = () => {
   const [error, setError] = useState("");
 
 
+  const renderAppBar = () => {
+    return (
+      <ResponsiveAppBar />
+    );
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmail("");
     setPassword("");
-    const res = await signIn(email, password);
+    const res = await signIn(email, password).then(
+      (res) => {
+        setData(res);
+      }
+    )
     if (res.error) setError(res.error);
       };
 
       return (
-              <>
+        <div className="Login">
+          {renderAppBar()}
               {error ? <div>{error}</div> : null}
               <form onSubmit={handleSubmit}>
               <input
@@ -36,7 +47,7 @@ export const Login = () => {
               />
             <input type="submit" value="submit" />
             </form>
-            </>
+            </div>
             );
         };
 

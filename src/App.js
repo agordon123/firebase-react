@@ -1,6 +1,6 @@
 import React, { useState ,useEffect,useReducer,useRef} from "react";
 import './App.css';
-import {Account} from "./components/pages/Account";
+import {Account} from "./components/Account/Account";
 import { Box, Container } from "@mui/material";
 import { Grid } from "@mui/material";
 import Header from './components/Header/Header';
@@ -14,8 +14,9 @@ import {Routes,Route,BrowserRouter as Router} from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Register from "./components/pages/Register";
 import { ListItem,Link,ListItemAvatar } from "@mui/material";
-import ResponsiveAppBar from "./testcomponents/ResponsiveAppBar";
-import MultiActionAreaCard from "./testcomponents/MultiActionCard";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import MultiActionAreaCard from "./components/MultiActionCard";
+
 
 export const App = () =>{
 
@@ -60,9 +61,10 @@ export const App = () =>{
     return(
         <>
         <ResponsiveAppBar />
-        <MultiActionAreaCard />
-        </>
-      
+            <MultiActionAreaCard />
+            
+        
+      </>
         )
     }
 

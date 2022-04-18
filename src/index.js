@@ -7,30 +7,27 @@ import './index.css';
 import {AuthProvider} from './components/auth/AuthProvider';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
-import Account from './components/pages/Account';
+import Account from './components/Account/Account';
 import Form from './components/common/Form';
+import AdminPage from './components/pages/Admin';
 
 ClassNameGenerator.configure((App) => App.replace('Mui', 'App'));
 
 ReactDOM.render(
-    
-
-   
-        <Router>
-        <Routes>
+  <AuthProvider>
+    <Router>
+      <Routes>
         <Route path="/" element={<App />} />
         <Route path="/account" element={<Account />} />
-        <Route path='/register' element={<Form title="Register"/> } />
-        <Route path="/login" element={<Form title="Login" /> } ></Route>
+        <Route path="/register" element={<Form title="Register" />} />
+        <Route path="/login" element={<Login />}></Route>
+        <Route path ="/admin" element={<AdminPage />}></Route>
+      </Routes>
+    </Router>
+  </AuthProvider>,
 
-        </Routes>
-        
-        </Router>
-        
-    
-  
-    , document.getElementById("root")
-    );
+  document.getElementById("root")
+);
 
     const routes = [
         {

@@ -1,0 +1,226 @@
+a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 701px) {
+    /******************************************************/  
+    /* RECOMMENDED SECTION                                */
+    /******************************************************/
+
+    div.account-grid-header {
+        grid-row: 1;
+        grid-column: 1 / span 3;
+    }
+    div#account-grid-container{
+        width: 100%;
+        grid-template-columns: 1fr!important;
+    }
+
+    div.account-grid-profile {
+        grid-row: 2;
+        grid-column: 1 / span 3;
+    }
+    
+    div.account-grid-portfolio{
+        grid-row: 3;
+        grid-column: 1 / span 3;
+    }
+    
+    div.account-grid-security {
+        grid-row: 4;
+        grid-column: 1 / span 3;
+    }
+    
+    div.account-grid-signout {
+        grid-row: 5;
+        grid-column: 1 / span 3;
+    }
+    
+    div.account-grid-delete-account {
+        grid-row: 6;
+        grid-column: 1 / span 3;
+    }
+
+    div.administrator-user-lookup{
+        grid-row: 1;
+        grid-column: 1/ span 3;
+    }
+    
+    div.administrator-audit-log{
+        grid-row: 3;
+        grid-column: 1 / span 3;
+    }
+
+    div.administrator-listing-control-panel{
+        grid-row: 4;
+        grid-column: 1/ span 3;
+    }
+
+    div.audit-log-div{
+        width: 100%;
+    }
+}
+
+.acc-grid-container {
+    margin: auto;
+    padding-top: 100px;
+    display: grid;
+    width: 75%;
+    height: 100%;
+    grid-gap: 30px;
+}
+
+.admin-grid-container {
+    margin: auto;
+    padding-top: 100px;
+    display: grid;
+    height: 100%;
+    grid-gap: 30px;
+}
+
+.account-grid-item{
+    position: relative;
+    text-align: left;
+    background-color: #eeeeee;
+    color: rgb(128, 128, 128);
+    font-size: 20px;
+    width: 100%;
+}
+
+.account-grid-header {
+    color: rgb(128, 128, 128);
+    grid-row: 1;
+    grid-column: 1 / span 3;
+    text-align: center;
+}
+
+.account-grid-item h4, h1{
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.account-grid-information{
+    position: relative;
+    width: 90%;
+    left: 5%;
+}
+
+.account-grid-information label{
+    font-size: 20px;
+}
+
+.account-grid-item .save{
+    background-color: #4193ff;
+}
+
+.account-grid-item button.gray{
+    background-color: gray;
+}
+
+.account-grid-item button.black{
+    margin-right: 15px;
+    background-color: rgb(83, 83, 83);
+}
+
+.account-grid-item button#delete-account{
+    background-color: red;
+}
+
+input[type="file"]{
+    margin-bottom: 20px;
+    padding: 15px 15px 15px 0;
+    font-size: 17px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.account-grid-item button, input[type="submit"]{
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 17px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.account-grid-item button:hover{
+    opacity: 0.8;
+}
+
+.input{
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 17px;
+    width: 87%;
+}
+
+.account-input{
+    border: 1px solid rgb(197, 197, 197);
+    height: 28px;
+}
+
+.account-text-area{
+    border: 1px solid rgb(197, 197, 197);
+    height: 80px;
+}
+
+.account-input-no-edit{
+    pointer-events: none; 
+    color: white; 
+    background-color: rgb(158, 158, 158);
+
+    border: 1px solid rgb(197, 197, 197);
+    height: 28px;
+}
+
+.account-input-no-edit::placeholder{
+   color: rgb(223, 223, 223);
+   font-size: 15px; 
+}
+
+.account-input::placeholder{
+   color: rgb(168, 168, 168);
+   font-size: 15px;
+}
+
+.account-grid-item h4:before {
+    content: "";
+    position: absolute;
+    width: 95%;
+    bottom: 0;
+    border-bottom: 3px solid rgb(117, 117, 117);
+}
+
+.account-grid-profile {
+    height: 100%;
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 2;
+}
+
+.account-grid-portfolio{
+    width: 100%;
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.account-grid-security {
+    height: 100%;
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 3;
+}
+
+.account-grid-signout {
+    height: 100%;
+    grid-column: 3;
+    grid-row: 3 / span 2;
+}
+
+.account-grid-delete-account {
+    height: 100%;
+    grid-column: 3;
+    grid-row: 5 / span 2;
+}

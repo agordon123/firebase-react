@@ -8,21 +8,34 @@ import { ImageListItem, Typography } from '@mui/material';
 
 
 
-const Images = () =>{
-}
+const Images = [
+  {
+    src: './assets/brownHouse.jpg',
+    title: 'Brown House',
+  },
+  {
+    src: './assets/coolHouse.jpg',
+    title: 'Cool House',
+  },
+  {
+    src: './assets/mncdevelopmentlogo.jpg',
+    title: 'MNC Development Logo',
+  }
+
+]
 
 export const Footer = () =>{
 
 
   return(
     <div className='GlobalFooter'>
-    <Box flex display="grid"  sx={{justifyContent:"center"}}>
+    <Box flex display="grid"  sx={{justifyContent:"center"}} children>
       <Grid  container spacing={4} paddingBottom="2" justifyContent="center" gridTemplateColumns={3} gridTemplateRows={3}>
         <Grid item gridRow={1}>
         <ImageList  gridTemplateColumns={3} >
-        <ImageListItem gridColumn={1} gridRow={1} className="footer-images" src="MNCThumbnail1.jpg" alt="default"/>
-        <ImageListItem gridColumn={2} gridRow={1} className="footer-images" src="MNCThumbnail2.jpg" alt="default" />
-        <ImageListItem gridColumn={3} gridRow={1} className="footer-images" src="MNCThumbnail3.jpg" alt="default" />
+        <ImageListItem gridColumn={1} gridRow={1} className="footer-images" src="./assets/MNCThumbnail1.jpg" alt="default"/>
+        <ImageListItem gridColumn={2} gridRow={1} className="footer-images" src="./assets/MNCThumbnail2.jpg" alt="default" />
+        <ImageListItem gridColumn={3} gridRow={1} className="footer-images" src="./assets/MNCThumbnail3.jpg" alt="default" />
       </ImageList>
     </Grid>
       <Grid item gridTemplateRows={2} >
