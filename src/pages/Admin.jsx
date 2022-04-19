@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {Box, Grid,Input  } from "@mui/material";
 import {query,where,getDoc} from 'firestore';
 import { db } from '../auth/firebase';
-import {ResponsiveAppBar} from '../ResponsiveAppBar';
+import {ResponsiveAppBar} from '../components/ResponsiveAppBar';
 const PageLayout = () =>{
 
     return(

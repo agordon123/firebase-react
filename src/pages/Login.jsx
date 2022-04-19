@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { signIn } from "../auth/firebase";
-import ResponsiveAppBar from "../ResponsiveAppBar";
+import { signIn,signOut,signUp,db } from "../auth/firebase";
+import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { app } from "../firebase";
@@ -8,32 +8,29 @@ import "./styles.css";
 
 
 export const Login = () => {
-  const [data,setData] = useState({})
+  const [user,setUser] = useState([])
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
 
-  const renderAppBar = () => {
-    return (
-      <ResponsiveAppBar />
-    );
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setEmail("");
     setPassword("");
     const res = await signIn(email, password).then(
       (res) => {
-        setData(res);
-      }
-    )
-    if (res.error) setError(res.error);
-      };
+        db.collection("users").doc(res.user.uid).get().then((doc) => {
+          setUser(localStorage.setItem('user', JSON.stringify(doc.data())))
+        });
+      })
+  }
+ 
+    
 
       return (
         <div className="Login">
-          {renderAppBar()}
+          
               {error ? <div>{error}</div> : null}
               <form onSubmit={handleSubmit}>
               <input
@@ -54,7 +51,8 @@ export const Login = () => {
             </form>
             </div>
             );
-        };
+  };
+  
 
 
 export default Login;

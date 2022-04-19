@@ -1,5 +1,5 @@
 import React, { useContext,useState } from "react";
-import { signOut, db } from "../auth/firebase";
+import { signOut, db } from "../../auth/firebase";
 import {
 getDoc
 } from "firebase/firestore";
@@ -92,7 +92,7 @@ export const AccountBox = () => {
                 const userData = [userId, userAccountType, userEmail, user];
                 const userDataIds = ["account-page-uuid", "account-page-type,", "account-page-email", "account-page-username"];
                 userDataIds.map((id, index) => {
-                    document.getElementById(id).value = userData[index];
+                    return document.getElementById(id).value = userData[index];
                 })
             } else {
                 alert("User does not exist");
@@ -102,7 +102,7 @@ export const AccountBox = () => {
     }
 
     return (
-      <>
+      <React.Fragment>
         
           <Typography
             align="center"
@@ -138,14 +138,14 @@ export const AccountBox = () => {
             </Button>
           </Container>
         </div>
-      </>
+      </React.Fragment>
     );
 }
 
 export const AccountPassword = () => {
-    const user = () => sessionStorage.getItem('user');
+    const user = () => localStorage.getItem('user');
     const getUserInfo = () => {
-        const user = JSON.parse(sessionStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user'));
         return user;
     }
     const renderUserInfo = () => {
@@ -199,12 +199,14 @@ export const AccountPassword = () => {
         <div class="account-grid-information">
           <h4>Change Password</h4>
             {generateContent}
-          <button class="save">
+          <Button class="save">
             Change
-          </button>
+          </Button>
         </div>
       </div>
     );
 }
 
 export default Account;
+
+AccountPassword.propTypes = {}

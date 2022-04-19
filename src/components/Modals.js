@@ -2,7 +2,7 @@ import React,{useEffect,useState} from "react";
 import './styles.css';
 import {signIn,signOut,signUp} from './components/auth/firebase';
 import { Dialog,Image, Paper, Typography,Container, Button,Link ,FormLabel} from '@mui/material';
-import modalNames from '../components/data/data.js';
+import modalNames from '../data/data.js.js';
 import { FormContainer,TextFieldElement } from 'react-hook-form-mui';
 import { ErrorOutline } from "@mui/icons-material";
 const RegistrationModal = () =>{

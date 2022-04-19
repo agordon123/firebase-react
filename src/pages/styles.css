@@ -1,0 +1,378 @@
+*{
+    font-family: Garamond;
+}
+
+input:focus{
+  outline: none;
+  border: none;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.30),0 0 0 1px rgba(0,0,0,0.12)
+}
+
+/********************************************************************/
+/*************************** ERROR MSG CSS **************************/
+/********************************************************************/
+.error-msg{
+    font-size: 15px;
+    color: red;
+    display: none;
+}
+
+/********************************************************************/
+/**************************** Modal CSS *****************************/
+/********************************************************************/
+
+
+/*****************************  CSS for the modal box   *****************************/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 20%; /* Could be more or less, depending on screen size */
+    background:rgb(209, 209, 209);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+  }
+  
+  /*****************************  CSS for input fields   *****************************/
+  .middle-modal input.input, .middle-modal input.input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color:black;
+    background-color:rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+  
+  .input::placeholder{
+    color: white;
+  }
+  
+  /*****************************  CSS for login/registration button   *****************************/
+  .login-register-btn {
+    color: white;
+    padding: 14px 20px;
+    width: 100%;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    background-color: #686868;
+  }
+  
+  .login-register-btn:hover{
+    opacity: 0.8;
+  }
+  
+  /*****************************  CSS for modal outline  *****************************/
+  /*
+    Header: Logo and Modal title
+  */
+  .header-modal {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  .header-modal h1{
+    border-radius: 10px;
+    color: rgb(78, 78, 78);
+    font-size: 20px; 
+    margin: 5%; 
+    padding: 5%; 
+    border: rgb(73, 73, 73) 2px solid;
+  }
+  
+  img.avatar {
+    width: 92%;
+  }
+  
+  /*
+    Middle: Input section and button container
+  */
+  .middle-modal {
+    color: white;
+    padding: 0px 16px 16px 16px;
+  }
+  
+  .portfolio-ask-btn{
+    width: 45%; 
+    font-size: 19px;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 2% 0 2%;
+    border: none;
+    cursor: pointer;
+    background-color: #686868;
+  }
+  
+  .portfolio-ask-btn:hover{
+    opacity: 0.8;
+  }
+  
+  /*
+    Bottom: Bottom modal navigation 
+  */
+  .bottom-modal{
+    color: white;
+    padding: 0px 16px 16px 16px;
+    opacity: .9; 
+    border-radius: 0 0 10px 10px;
+  }
+  
+  /*
+    Navigation links: Navigation links at bottom of modal
+  */
+  .modal-link{
+    color: rgb(53, 53, 53);
+    cursor: pointer;
+  }
+  
+  .register{
+    display: block;
+    float: right;
+  }
+  
+  /*****************************  CSS for X button to exit modal   *****************************/
+  .close {
+    position: relative;
+    left: 90%;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /***************************** CSS for animations when opening modal   *****************************/
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /***************************** CSS to match modal with different screen sizes   *****************************/
+  @media only screen and (max-width: 1639px) {
+    .modal-content {
+      width: 400px; 
+    }
+  }
+  
+  @media only screen and (max-width: 1229px) {
+    .modal-content {
+      width: 450px; 
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .modal-content {
+  
+      width: 90%; 
+  
+    }
+  }
+
+/********************************************************************/
+/************************ Listing Preview CSS ***********************/
+/********************************************************************/
+
+.listing-preview{
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 275px;
+    max-height: 275px;
+}
+
+.listing-preview img:hover{
+    cursor: pointer;
+    border: gray solid 2px;
+    box-shadow: gray;
+}
+
+.listing-preview img{
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.listing-preview-label{
+    padding: 10px;
+    text-align: left;
+    background-color: rgba(68, 68, 68, 0.5);
+    position: absolute; 
+    max-width: 100%;
+    color: white;
+    z-index: 1;
+}
+
+.listing-preview-price{
+    top: 0; 
+    left: 0;
+    font-size: 20px;
+    border-right: 1px rgba(158, 158, 158, 0.151) solid;
+    border-bottom: 1px rgba(218, 218, 218, 0.151) solid;
+}
+
+.listing-preview-address{
+    bottom: 0; 
+    left: 0;
+    font-size: 17px;
+}
+
+.listing-preview-room{
+    bottom: 0; 
+    right: 0;
+    font-size: 17px;
+}
+
+/********************************************************************/
+/**************************** Nav Bar CSS ***************************/
+/********************************************************************/
+.navbar-menu{
+    display: none;
+}
+  
+  body header ul.main-navbar {
+    box-shadow: 0px 5px 10px 2px #888888;
+    background-color: rgb(196, 196, 196);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+  }
+  
+  body header ul.main-navbar li {
+    float: right;
+  }
+    
+  body header ul.main-navbar li a {
+    font-size: 20px;
+    display: block;
+    color: white; /*686868*/
+    text-align: center;
+    padding: 19px 20px;
+    text-decoration: none;
+  }
+  
+  body header ul.main-navbar li a:hover {
+    background-color: rgb(141, 141, 141);
+    color: white;
+  }
+  
+  .administrator-panel{
+    display: none;
+  }
+  
+  /********************************************************/
+  /* SMALLER SCREENS                                       /
+  /********************************************************/
+  
+  @media only screen and (max-width: 777px) {
+    div#right-side{
+        display: none;
+    }
+  
+    div.navbar-menu{
+      display: block;
+    }
+  
+    div.menu-icon {
+      width: 35px;
+      height: 5px;
+      background-color: #686868;
+      margin: 6px 0;
+    }
+  }
+  
+
+/********************************************************************/
+/*************************** Drop Down CSS **************************/
+/********************************************************************/
+  .main-navbar .dropdown {
+    float: right;
+    overflow: hidden;
+  }
+  
+  .main-navbar .dropdown:hover #profile-tab {
+    background-color: rgb(141, 141, 141);
+    color: white;
+  }
+  
+  .main-navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .main-navbar .dropdown-content a {
+    box-sizing: border-box;
+    color: black;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  /*CSS for profile dropdown*/
+  .main-navbar .dropdown-content a {
+    padding: 12px 13px;
+    display: block;
+  }
+  
+  .main-navbar .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .main-navbar .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  #navbar-menu-content{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  #navbar-menu-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }

@@ -20,11 +20,11 @@ const pages = ['Contact', 'Search Listings', 'My Account','Administrator','Login
 const links = ['/contact','/','/account','/admin','/login']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
 
   const linksContainerRef = React.useRef(null);
   
-
+  
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -49,7 +49,8 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
-  const populateNavBar = () =>{
+  const populateNavBar = () => {
+    
     return pages.map((page, index) => {
       return (
         <MenuItem key={index}>

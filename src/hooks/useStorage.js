@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-import {db} from '../components/auth/firebase';
+import {db} from '../auth/firebase';
 
 const useStorage = (file) =>{
     const [progress,setProgress] = useState(0);

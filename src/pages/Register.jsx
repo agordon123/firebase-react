@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { db, signUp } from "../auth/firebase";
+import { db, signUp,auth } from "../auth/firebase";
 import { Button } from "@mui/material";
 import {query, getDocs,addDoc,serverTimestamp} from "firebase/firestore";
 import React,{ useEffect } from "react";
@@ -9,7 +9,7 @@ import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmai
 
 
 export const Register = () => {
-    const [data,setData] = useState({})
+    const [user,setUser] = ([])
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -22,7 +22,7 @@ export const Register = () => {
         let inputs = { [e.target.name]: e.target.value };
         
     }
-    const handleSubmit = async (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         if (password !== password2) {
         setError("Passwords do not match");
@@ -35,8 +35,8 @@ export const Register = () => {
                     setEmail("");
                     setPassword("");
                     setPassword2("");
-                    setData(JSON.stringify(data));
-                    sessionStorage.setItem('user',JSON.stringify(data));
+                    setUser(localStorage.setItem('user',JSON.stringify(data)));
+                   
                 }
             })
         }     
@@ -60,11 +60,11 @@ export const Register = () => {
 
     
         return (
-                <>
+                <React.Fragment>
                 <h2>Sign Up</h2>
                 <div>
                 {error ? <div>{error}</div> : null}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSignUp}>
                 <input
                 
                     type="email"
@@ -81,21 +81,21 @@ export const Register = () => {
                     value={password}
                     placeholder="Your Password"
                     required
-                    autoComplete="true"
+                    autoComplete="false"
                     onChange={(e) => setPassword(e.target.value)}
                         />
                         <input
                     type="password"
                     name="password"
                     value={password2}
-                    placeholder="Your Password"
+                    placeholder="Confirm Password"
                     required
                     autoComplete="false"
                     onChange={(e) => setPassword2(e.target.value)}
                         />
                 <Button type="submit"
                 component="Register"
-                onClick={handleSubmit}
+                onClick={handleSignUp}
                 >Submit</Button>
                 </form>
                 <p>
@@ -103,7 +103,7 @@ export const Register = () => {
                 <Link to="/login">Login</Link>
                 </p>
                 </div>
-                </>
+                </React.Fragment>
                     );
     }
 

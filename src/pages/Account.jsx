@@ -1,6 +1,6 @@
 import React,{useContext} from "react";
 import { signOut } from "../auth/firebase";
-import {AuthContext} from '../AuthContext.js'
+import {AuthContext} from '../components/AuthContext.js'
 
 
 

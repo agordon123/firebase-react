@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App";
 import './index.css';
-import {AuthProvider} from './components/auth/AuthProvider';
-import Register from './components/pages/Register';
-import Login from './components/pages/Login';
+import {AuthProvider} from './auth/AuthProvider';
+import Register from './pages/Register';
+import Login from './pages/Login';
 import Account from './components/Account/Account';
-import Form from './components/common/Form';
-import AdminPage from './components/pages/Admin';
+import Form from './common/Form';
+import AdminPage from './pages/Admin';
 
 ClassNameGenerator.configure((App) => App.replace('Mui', 'App'));
 

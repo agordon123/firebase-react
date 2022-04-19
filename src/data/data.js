@@ -178,3 +178,31 @@ export const commonLinks = [
     path: "/login",
   },
 ];
+
+export const links = [
+  {
+    id: 1,
+    url: '/',
+    text: 'Home',
+  },
+  {
+    id: 2,
+    url: '/contact',
+    text: 'Contact',
+  },
+  {
+    id: 3,
+    url: '/account',
+    text: 'Account',
+  },
+  {
+    id: 4,
+    url: '/admin',
+    text: 'Admin',
+  },
+  {
+    id: 5,
+    url: '/signup',
+    text: 'Signup/Login',
+  },
+];

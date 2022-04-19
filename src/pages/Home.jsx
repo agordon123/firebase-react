@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../components/Navbar.jsx";
+import { Navbar } from "../components/Navbar.js";
 import { commonLinks } from "../data/sitedata.js";
 import { Header } from "../components/Header";
 export const Home = () => {
