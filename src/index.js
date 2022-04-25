@@ -4,47 +4,63 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import App from "./App";
 import './index.css';
-import {AuthProvider} from './auth/AuthProvider';
-import Register from './pages/Register';
+import { Provider } from 'react-redux';
 import Login from './pages/Login';
-import Account from './components/Account/Account';
+import Account from './pages/Account';
 import Form from './common/Form';
 import AdminPage from './pages/Admin';
+import Home from './pages/Home';
+import { firebaseConfig, auth, db,app } from './auth/firebase';
+import { createStore, combineReducers, compose } from "redux";
+import {
+  ReactReduxFirebaseProvider,
+  firebaseReducer,
+} from "react-redux-firebase";
+import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
 
-ClassNameGenerator.configure((App) => App.replace('Mui', 'App'));
+
+
+
+
+
+
+const rootReducer = combineReducers({
+  firebase: firebaseReducer,
+  firestore: firestoreReducer // <- needed if using firestore
+});
+const initialState = {};
+const store = createStore(rootReducer, initialState);
+
+const rrfConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true
+  // enableClaims: true // Get custom claims along with the profile
+};
+const rrfProps = {
+  firebase:app,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+};
+
+
+ClassNameGenerator.configure((App) => App.replace('Mui', 'MNC'));
 
 ReactDOM.render(
-  <AuthProvider>
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
     <Router>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Home />} />
         <Route path="/account" element={<Account />} />
         <Route path="/register" element={<Form title="Register" />} />
         <Route path="/login" element={<Login />}></Route>
-        <Route path ="/admin" element={<AdminPage />}></Route>
+        <Route path="/admin" element={<AdminPage />}></Route>
       </Routes>
+      
     </Router>
-  </AuthProvider>,
-
+    </ReactReduxFirebaseProvider>
+  </Provider>,
   document.getElementById("root")
 );
 
-    const routes = [
-        {
-            path: "/",
-            component:App
-        },
-        {
-            path:"/account",
-            component:Account
-        },
-        {
-            path:"/login",
-            component:Login
-        },
-        {
-            path:"/register",
-            component:Register
-        }
-    
-    ] 

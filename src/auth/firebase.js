@@ -1,8 +1,10 @@
-import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth,GoogleAuthProvider,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { getFirestore,addDoc,collection, serverTimestamp} from "firebase/firestore";
 import {getStorage} from 'firebase/storage'
 import {getDatabase} from 'firebase/database';
+//Contains all the firebase configuration
+
 
 export const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -13,7 +15,9 @@ export const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
-  };
+};
+  
+ 
 export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
@@ -59,7 +63,7 @@ export const signIn = async (email, password) => {
         }
       };
 
-export const signOut = async() => {
+export const userSignOut = async() => {
           try {
             await signOut(auth)
             return true

@@ -3,7 +3,7 @@ import { signIn,signOut,signUp,db } from "../auth/firebase";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { app } from "../firebase";
+import { app } from "../auth/firebase";
 import "./styles.css";
 
 

@@ -1,24 +1,132 @@
 import React,{useEffect,useState} from "react";
 import './styles.css';
-import {signIn,signOut,signUp} from './components/auth/firebase';
-import { Dialog,Image, Paper, Typography,Container, Button,Link ,FormLabel} from '@mui/material';
-import modalNames from '../data/data.js.js';
+import { signIn, signOut, signUp ,auth} from '../auth/firebase';
+import { Dialog, DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle, Paper, Typography, Container, Button, Link, FormLabel } from '@mui/material';
+import PropTypes from 'prop-types';
+
+import { onAuthStateChanged } from "firebase/auth";
 import { FormContainer,TextFieldElement } from 'react-hook-form-mui';
-import { ErrorOutline } from "@mui/icons-material";
-const RegistrationModal = () =>{
-    const handleOnClick = () => {
-        
+import { ErrorOutline, Login } from "@mui/icons-material";
+import { useForm } from "react-hook-form";
+import modalNames from "../data/data";
+
+const Input = ({label,register,required}) => {
+  <React.Fragment>
+    <label>{label}</label>  
+    <input {...register(label,{required})} />
+  </React.Fragment>
+}
+
+export const Register = () => {
+  const [user, setUser] = [];
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [password2, setPassword2] = useState("");
+  const {register,handleSubmit,formState:errors} = useForm();
+
+  const handleInput = (e) => {
+    let inputs = { [e.target.name]: e.target.value };
+  };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setError("Passwords do not match");
+    } else {
+      signUp(email, password).then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setError("");
+          setEmail("");
+          setPassword("");
+          setPassword2("");
+          user = setUser(localStorage.setItem("user", JSON.stringify(data)));
+          setUser(user);
+        }
+      });
     }
+  };
+
+  useEffect(() => {
+    
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        console.log(user);
+      } else {
+        console.log("not logged in");
+      }
+    });
+  }, []);
+
+  return (
+    <div className="Register">
+      <h2>Sign Up</h2>
+      <Paper>
+        <div>
+          {error ? <div>{error}</div> : null}
+          <form onSubmit={handleSubmit}>
+            <Input
+              type="email"
+              name="email"
+              value={email}
+              placeholder="Your Email"
+              autoComplete="true"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              name="password"
+              value={password}
+              placeholder="Your Password"
+              required
+              autoComplete="false"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              name="password"
+              value={password2}
+              placeholder="Confirm Password"
+              required
+              autoComplete="false"
+              onChange={(e) => setPassword2(e.target.value)}
+            />
+            <Button type="submit" component="Register" onClick={handleSignUp}>
+              Submit
+            </Button>
+          </form>
+          <p>
+            already registered?
+            <Link to="/login">Login</Link>
+          </p>
+        </div>
+      </Paper>
+    </div>
+  );
+};
+
+
+const RegistrationModal = () => {
+  
+
     return (
          <div class="bottom-modal" >
 
     </div>
     )
 }
-const LoginPaper =(props) =>{
+const LoginPaper =(props)=>{
     const [isOpen,setIsOpen] = useState(false);
     const [modal, setModal] = useState('');
-    const { modalName } = props;
+  const { modalNames } = props;
+  
     const handleOnClick = () => {
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
@@ -27,19 +135,26 @@ const LoginPaper =(props) =>{
         }
         login();
     }
-    const handleOnChange = () => {
+    const handleOnChange = (e) => {
+        const { name, value } = e.target;
+      setModal({ [name]: value });
+      
         
-    }
+  }
+  const handleOpenModal = (e) => {
+    e.preventDefault();
+    let newModal = document.getElementById(e.target.name).value;
+  }
     const handleCloseModal = () => {
         setIsOpen(false);
         
     }
 
     return (
-      <>
+      
         <Paper id="modal-content-animate" sx={{}}>
           <Typography
-            onclick={handleCloseModal()}
+            onclick={handleCloseModal}
             class="close"
             title="Close Modal"
             sx={{ float: "right", cursor: "pointer" }}
@@ -48,12 +163,14 @@ const LoginPaper =(props) =>{
           </Typography>
 
           <Container container id="header-modal">
-            <Image
+            <image
               src="/assets/mncdevelopmentlogo.jpg"
               alt="Avatar"
               class="avatar"
             />
-            <Typography variant="h1">Login</Typography>
+            <Typography variant="h1">
+              Login
+            </Typography>
           </Container>
           <Container container id="middle-modal">
             <ErrorOutline id="incorrect-login-info" class="error-msg">
@@ -82,7 +199,7 @@ const LoginPaper =(props) =>{
             <TextFieldElement class="register" onClick={setModal('registration')}>
               {" "}
               <FormLabel class="modal-link">
-                <u>Register</u>
+                <Typography variant="underlined"sx={{fontWeight:'bold',fontStyle:'underlined'}}>Register</Typography>
               </FormLabel>
                         </TextFieldElement>
                         </FormContainer>
@@ -99,14 +216,14 @@ const LoginPaper =(props) =>{
                        
                     </Link>
 
-        <span onclick="modalOpen('forgotPw')"><label class="modal-link"><u>Forgot Password?</u></label></span>
+        <Typography variant="body" onClick={handleOnChange}><label class="modal-link"><u>Forgot Password?</u></label></Typography>
       </div>
           </Container>
         </Paper>
-      </>
+      
     );
 }
-const DialogFrame = (props) => {
+export const DialogFrame = (props) => {
     
     const [modal, setModal] = useState('');
     const [open, setOpen] = useState(false);
@@ -137,13 +254,20 @@ const ForgotPwModal = () =>{
     
 }
 
-export const Modals = () =>{
+export const Modals = (props) =>{
 
     return(
-        <>
-        </>
+      <React.Fragment>
+        <DialogFrame modalName={props} />
+        </React.Fragment>
 
 
      
     )
 }
+
+LoginPaper.propTypes = {
+
+}
+
+export { LoginPaper, RegistrationModal, ForgotPwModal };

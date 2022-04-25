@@ -1,75 +1,71 @@
 import React, { useState ,useEffect,useReducer,useRef} from "react";
 import './App.css';
-import {Account} from "./components/Account/Account";
-import { Box, Container } from "@mui/material";
-import { Grid } from "@mui/material";
-import Header from './Header/Header';
 import {app, auth} from "./auth/firebase";
 import {signInWithEmailAndPassword,createUserWithEmailAndPassword,getAuth} from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
-import { signIn,signUp,signOut } from "./auth/firebase";
-import Login from "./pages/Login";
-import Form from './common/Form';
-import {Routes,Route,BrowserRouter as Router} from 'react-router-dom';
-import Layout from './Layout/Layout';
-import Register from "./pages/Register";
-import { ListItem,Link,ListItemAvatar } from "@mui/material";
+import { signIn,signUp,userSignOut} from "./auth/firebase";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import MultiActionAreaCard from "./components/MultiActionCard";
+import { Container } from "@mui/material";
+import LogRocket from "logrocket";
+import { Provider } from 'react-redux';
+import Home from './pages/Home';
+import { NavBar } from "./components/ResponsiveAppBar";
 
+LogRocket.init("3fiizl/mnc-consulting");
 
 export const App = () =>{
 
+    const [user,setUser] = useState([])
     
-    const [data,setData] = useState({});
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const handleInput = (e) =>{
         let inputs = { [e.target.name]: e.target.value };
-        setData({...data,...inputs});
+       
         
     }
     const handleAction = () =>{
 
     }
     const handleSubmit = () =>{
-        signInWithEmailAndPassword(auth,data.email,data.password);
+        signInWithEmailAndPassword(auth,user.email,user.password);
     }
     const handleLogout = () =>{
-        signOut(getAuth(auth));
+        userSignOut(getAuth(auth));
     }
 
     const addNewUser = () =>{
-        createUserWithEmailAndPassword(auth,data.email,data.password).then(()=>{
+        createUserWithEmailAndPassword(auth,user.email,user.password).then(()=>{
             let user = auth.currentUser;
             let db = getFirestore(app);
-            db.collection("users").doc(data.email).set({
-                email: data.email,
-                password: data.password,
+            db.collection("users").doc(user.email).set({
+                email: user.email,
                 uid: user.uid,
                 AccountType:'Regular'
             }).then(()=>{
-                setData(user);
+                setUser(user);
             })
         });
-        handleSubmit(data.email,data.password);
+        handleSubmit(user.email,user.password);
     }
 
 
     
     return(
-        <>
-        <ResponsiveAppBar />
-            <MultiActionAreaCard />
+        <Container maxWidth="xxl" sx={{  }}>
+            
+          
+            
             
         
-      </>
+      </Container>
         )
     }
 
-        
- 
+
+
 
 
 

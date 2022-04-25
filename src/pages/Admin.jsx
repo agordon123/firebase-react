@@ -23,34 +23,51 @@ const PageLayout = () =>{
 }
 const AccountGridSearch = (props) =>{
 
+    const [loggedIn,isLoggedIn] = useState(null);
     const handleOnClick = (e) =>{
         SearchUsers(e.input.value);
 
     }
-    return(
-        <Box container="true" className="AccountGridContainer" style="display:none;" id="account-search-grid" sx={{justifyContent:'center',alignItems:'center'}} >
-            <h4>
-            Search Up User
-            </h4>
-            <Box item={true} className="AccountGrid">
-                <Input id="userSearch" placeholder="Enter username of target user" ></Input>
-                <label id="error-msg-user-search-box" class="error-msg">User does not exist</label>
-            </Box>
-            <Box item="true" >
-                <input id='user-search' class="AccountGridContainer"
-                    placeholder="Enter username of target user">
-                </input>
-            <Box item="true" className="AccountGridContainer">
-                <button class="save" onclick={handleOnClick}>Search</button>
-            </Box>
-            </Box>
+    return (
+      <Box
+        container="true"
+        className="AccountGridContainer"
+        style="display:none;"
+        id="account-search-grid"
+        sx={{ justifyContent: "center", alignItems: "center", display: 'none' }}
+      >
+        <h4>Search Up User</h4>
+        <Box item={true} className="AccountGrid">
+          <Input
+            id="userSearch"
+            placeholder="Enter username of target user"
+          ></Input>
+          <label id="error-msg-user-search-box" class="error-msg">
+            User does not exist
+          </label>
         </Box>
-    )
+        <Box item="true">
+          <input
+            id="user-search"
+            class="AccountGridContainer"
+            placeholder="Enter username of target user"
+          ></input>
+          <Box item="true" className="AccountGridContainer">
+            <button class="save" onclick={handleOnClick}>
+              Search
+            </button>
+          </Box>
+        </Box>
+      </Box>
+    );
 }
 export const SearchUsers = (props) => {
+    // props to be passed in from the search bar
+    const { user, userId, userEmail, userAccountType } = props;
+    // hooks for the user search box on the account page
     const [userName,setUserName] = useState(props.userName);
     const [accountType,setAccountType] = useState(props.accountType);
-    const { user, userId, userEmail, userAccountType } = props;
+    
     const [userInfo,setUserInfo] = useState([]);
     //Get value in search box
     const handleSubmit = () => {
@@ -108,9 +125,9 @@ export const SearchUsers = (props) => {
 
 }
 const AccountSearchResults = (props)=>{
-
+    const defStyle = "display:none";
     return(
-        <div id='account-info' style="display: none;">      
+        <div id='account-info' style={defStyle}>      
                 </div>
             
         
@@ -223,28 +240,29 @@ const AddListing = () =>{
                 </div>
             )
             return (
-                <>
+                <React.Fragment>
                     {addListing}
-                </>
+                </React.Fragment>
             )
         }
     }
 
     return(
-        <>
+        <React.Fragment>
             <h4 id="listing-control-panel-header">Add Listing</h4>
                 <form id="add-listing-form">
                     {generateInputs()}
                 <input type="submit" id="listing-control-panel-btn" class="save" onclick="addListing()" />
-                </form>
-    </>
+            </form>
+            <AddPictureToListing />
+    </React.Fragment>
     )
 }
 const AddPictureToListing = () =>{
 
 
     return(
-        <>
+        <React.Fragment>
         <p>
         <div id="images">
             <label>
@@ -259,17 +277,17 @@ const AddPictureToListing = () =>{
         </p>
         <p>
         <img id="myImg"
-            style="min-width: 200px; min-height: 200px; max-width: 200px; max-height: 200px; border: black 2px solid;" alt="" />
+            sx={{minWidth: '200px', minHeight: '200px', maxWidth: '200px', maxHeight:'200px', border: 'black 2px solid'}} alt="default" />
         </p>
-        </>
+        </React.Fragment>
     )
 }
 const AdminPage = () =>{
     
     return(
-        <>
+        <div className="AdminPage">
         <h1><u>Administrator Page</u></h1>
-        </>
+        </div>
             
     )
 }
