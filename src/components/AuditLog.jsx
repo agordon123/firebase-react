@@ -1,173 +1,103 @@
-import React from "react";
 import { db, auth, storage, signIn, signOut, signUp } from "../auth/firebase";
 import { serverTimestamp } from "firebase/firestore";
-import { Typography } from "@mui/material";
+import { Typography,Divider,ListItem, List} from "@mui/material";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import ListItemText from '@mui/material/ListItemText';
+import { FixedSizeList } from 'react-window';
+import styledComponents from "styled-components";
 
 
-export const addAuditLog = (action, value) => {
-  let description = "";
-  let username = "";
-  let UUID = "";
-  let accDetails = localStorage.getItem("user");
+const renderAuditLogRow =(props) =>{
 
-  if (action === "Deleted Account") {
-    description = "Deleted their account";
-    username = localStorage.getItem("deletedUsername");
-    UUID = localStorage.getItem("deletedUUID");
-  } else {
-    username = accDetails.Username;
-    UUID = accDetails.UUID;
-
-    if (
-      action === "Added Listing" ||
-      action === "Updated Listing" ||
-      action === "Deleted Listing"
-    ) {
-      description = "<b>Listing ID: <b>" + value;
-    } else if (action === "Changed Username") {
-      description = "New Username: " + value;
-    } else if (action === "Updated Account Type") {
-      description =
-        "Assigned " +
-        value[0] +
-        " " +
-        value[2] +
-        " Role<br>" +
-        value[0] +
-        " ID: " +
-        value[1];
-    }
-  }
-
-  db.collection("auditLog")
-    .add({
-      Action: action,
-      UserID: UUID,
-      Username: username,
-      DateTime: serverTimestamp,
-      Description: description,
-    })
-    .catch((error) => {
-      console.log("Error with updating audit log");
-      console.error(error);
-      return false;
-    });
-  return true;
-};
-
-export const AuditLog =() => {
-  document.getElementById("audit-log").style.display = "block";
-  document.getElementById("admin-grid-container").style.display = "none";
-
-  let logContainer = document.getElementById("log-container");
-
-  let docs = [];
-
-  db
-    .collection("auditLog", "desc")
-    .orderBy("DateTime")
-    .limit(100)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        docs.push(doc);
-      });
-
-      for (let i = docs.length - 1; i >= 0; i--) {
-        let logData = docs[i].data();
-        let docId = docs[i].id;
-        let dateFormat = Intl.DateTimeFormat("en-US", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        }).format(logData.DateTime.toDate());
-        return (
-          <div className="AuditLog">
-            <Typography variant="h1" sx={{color:'black'}}>
-              Audit Log
-            </Typography>
-            {logData.map((docID,logData) => { 
-              <Container id="log-container">
-                <Typography
-                  sx={{
-                    margin: '10px 20px',
-                    color: 'white',
-                    backgroundColor: 'black',
-                    borderRadius: '12px',
-                    padding: ' 5px 15px 5px 15px',
-                    width: '100%'
-                  }} label="descriptionLabel">
-                  <b style="color:rgb(197,197,197">{doc.UserID}</b>
-                  <br>
-                  
-                  </br>
-                </Typography>
-                </Container>
-            })}
-          </div>
-        )
-      }
-
-        let logDiv = document.createElement("div");
-        let descriptionLabel = document.createElement("label");
-        let brElement = document.createElement("br");
-        let dateLabel = document.createElement("label");
-        let d = document.createElement("div");
-        let moreDetails = document.createElement("div");
-        let detailsAuthorId = document.createElement("div");
-        let detailsDescription = document.createElement("p");
-        let detailsAuditId = document.createElement("div");
-        let descriptionBtn = document.createElement("button");
-
-        logDiv.setAttribute("class", "log");
-        descriptionLabel.innerHTML =
-          '<b style="color:rgb(197, 197, 197)">' +
-          logData.Username +
-          "</b> " +
-          logData.Action;
-        descriptionLabel.setAttribute("class", "descriptionLabel");
-        dateLabel.innerHTML = dateFormat;
-
-        moreDetails.setAttribute("id", docId);
-        moreDetails.setAttribute("class", "more-details");
-
-        detailsAuditId.innerHTML = "<b>Audit ID:</b> " + docId;
-        detailsAuthorId.innerHTML = "<b>Author ID:</b> " + logData.UserID;
-        detailsDescription.innerHTML = logData.Description;
-
-        descriptionBtn.setAttribute("id", docId + "_button");
-        descriptionBtn.setAttribute("class", "detailsBtn");
-        descriptionBtn.innerHTML = "More Details";
-        descriptionBtn.setAttribute(
-          "onclick",
-          'openMoreDetails("' + docId + '")'
-        );
-
-        moreDetails.appendChild(detailsDescription);
-        moreDetails.appendChild(detailsAuthorId);
-        moreDetails.appendChild(detailsAuditId);
-
-        d.appendChild(descriptionBtn);
-
-        logDiv.appendChild(descriptionLabel);
-        logDiv.appendChild(brElement);
-        logDiv.appendChild(dateLabel);
-        logDiv.appendChild(moreDetails);
-        logDiv.appendChild(d);
-
-        logContainer.appendChild(logDiv);
-      
+  const { logData } = props;
+  const [docs,setDocs] = React.useState([]);
+  const getAuditLog = () => {
     
+    db.collection("auditLog")
+      .orderBy("DateTime", "desc")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const logData = [{
+            DateTime: doc.data().DateTime,
+            auditId: doc.id,
+            userName: doc.data().UserName,
+            Action: doc.data().Action,
+            Description: doc.data().Description,
+            userID: doc.data().UserID,
+          }]
+          console.log(logData);
+          return logData;
+        });
+      });
+  };
   return (
-    <div>
-      <div id="log-container">
-      
-      </div>
-    </div>
-  )
+    <Box
+      className="log-container"
+      sx={{
+        boxSizing: "border-box",
+        color: "white",
+        padding: "5px 15px 5px 15px",
+        backgroundColor: "rgb(37,37,37)",
+        borderRadius: "12px",
+        margin: "10px 20px",
+        display: "block",
+        fontFamily: "Garamond",
+      }}
+    >
+      <List>
+        <ListItem key={props.auditId} component="AuditLog" disablePadding>
+          <ListItemText primary={`AuditID : ${props.logData.auditId}`} />
+          <ListItemText
+            primary={`User: ${props.logData.userName}`}
+          ></ListItemText>
+          <ListItemText
+            primary={`User ID: ${props.logData.userID}`}
+          ></ListItemText>
+          <ListItemText
+            primary={`Date/Time: ${props.logData.dateTime}`}
+          ></ListItemText>
+          <ListItemText
+            primary={`Action : ${props.logData.Action}`}
+          ></ListItemText>
+          <ListItemText
+            primary={`Description: ${props.logData.Description}`}
+          ></ListItemText>
+        </ListItem>
+      </List>
+    </Box>
+  );
 }
-export default addAuditLog;
+
+const VirtualizedLog = () => {
+  const [active, setActive] = React.useState(false);
+  
+
+  React.useEffect(() => { 
+    getAuditLog();
+    setActive(true)
+  }, [active]);
+  return (
+    <Box
+      sx={{ width: '100%', height: 400, maxWidth: 360, backgroundColor: 'black ',color:'white' }}
+    >
+      <FixedSizeList
+        height={400}
+        width={360}
+        itemSize={100}
+        itemCount={200}
+        overscanCount={5}
+        justifyContent="center"
+        alignItems="center"
+      >
+        {renderAuditLogRow}
+      </FixedSizeList>
+    </Box>
+  );
+}
+
+
+export default VirtualizedLog;
+
+

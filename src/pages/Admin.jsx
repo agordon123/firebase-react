@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import {Box, Grid,Input  } from "@mui/material";
 import {query,where,getDoc} from 'firestore';
 import { db } from '../auth/firebase';
-import {ResponsiveAppBar} from '../components/ResponsiveAppBar';
+import { ResponsiveAppBar } from '../components/ResponsiveAppBar';
+import {AuditLog} from '../components/AuditLog';
 const PageLayout = () =>{
 
     return(
@@ -134,8 +135,10 @@ const AccountSearchResults = (props)=>{
 
     )
 }
-const AuditLog = () => {
-
+const ShowAuditLog = () => {
+    const handleClick = () => {
+        
+    }
     return(
         <div class="account-grid-item administrator-audit-log">
             <div class="account-grid-information">
