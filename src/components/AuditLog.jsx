@@ -1,7 +1,7 @@
 import { db, auth, storage, signIn, signOut, signUp } from "../auth/firebase";
+import React, {useState} from 'react';
 import { serverTimestamp } from "firebase/firestore";
-import { Typography,Divider,ListItem, List} from "@mui/material";
-import * as React from 'react';
+import { Typography,Divider,ListItem, List, Stack} from "@mui/material";
 import Box from '@mui/material/Box';
 import ListItemText from '@mui/material/ListItemText';
 import { FixedSizeList } from 'react-window';
@@ -10,8 +10,8 @@ import styledComponents from "styled-components";
 
 const renderAuditLogRow =(props) =>{
 
-  const { logData } = props;
-  const [docs,setDocs] = React.useState([]);
+  const { loggedAt,auditId,userName,Action,Description,userID} = props;
+  
   const getAuditLog = () => {
     
     db.collection("auditLog")
@@ -20,36 +20,31 @@ const renderAuditLogRow =(props) =>{
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const logData = [{
-            DateTime: doc.data().DateTime,
+            loggedAt: doc.data().DateTime,
             auditId: doc.id,
             userName: doc.data().UserName,
             Action: doc.data().Action,
             Description: doc.data().Description,
             userID: doc.data().UserID,
-          }]
+          } ]
+          logData.map((log) => {
+            
+            log.loggedAt = props.loggedAt;
+            log.auditId = props.auditId;
+            log.userName = props.userName;
+            log.Action = props.Action;
+            log.Description = props.Description;
+            log.userID = props.userID;
+          })
           console.log(logData);
-          return logData;
-        });
-      });
-  };
-  return (
-    <Box
-      className="log-container"
-      sx={{
-        boxSizing: "border-box",
-        color: "white",
-        padding: "5px 15px 5px 15px",
-        backgroundColor: "rgb(37,37,37)",
-        borderRadius: "12px",
-        margin: "10px 20px",
-        display: "block",
-        fontFamily: "Garamond",
-      }}
-    >
-      <List>
-        <ListItem key={props.auditId} component="AuditLog" disablePadding>
-          <ListItemText primary={`AuditID : ${props.logData.auditId}`} />
-          <ListItemText
+          return (
+            <Box component="AdminPage"
+              sx={{ backgroundColor: 'black',color:'white',fontFamily:'Garamond' }}>
+            <Stack direction="column" spacing={2}>
+                   <List>
+                      <ListItem key={props.auditId} component="AuditLog" disablePadding>
+                          <ListItemText primary={`AuditID : ${props.logData.auditId}`} />
+                      <ListItemText
             primary={`User: ${props.logData.userName}`}
           ></ListItemText>
           <ListItemText
@@ -66,15 +61,38 @@ const renderAuditLogRow =(props) =>{
           ></ListItemText>
         </ListItem>
       </List>
+              </Stack>
+          </Box>
+          )
+        });
+      });
+  };
+
+
+  return (
+    <Box
+      className="log-container"
+      sx={{
+        boxSizing: "border-box",
+        color: "white",
+        padding: "5px 15px 5px 15px",
+        backgroundColor: "rgb(37,37,37)",
+        borderRadius: "12px",
+        margin: "10px 20px",
+        display: "block",
+        fontFamily: "Garamond",
+      }}
+    >
+
     </Box>
   );
 }
 
-const VirtualizedLog = () => {
+export const VirtualizedLog = () => {
   const [active, setActive] = React.useState(false);
   
 
-  React.useEffect(() => { 
+   const useEffect =(() => { 
     getAuditLog();
     setActive(true)
   }, [active]);
